@@ -1,0 +1,551 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Real Time Attendance Free</title>
+  <link rel="shortcut icon" type="image/png" href="{% static '/assets/images/logos/favicon.png' %}" />
+  <link rel="stylesheet" href="{% static '/assets/css/styles.min.css' %}" />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+</head>
+
+<body>
+ 
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+  
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="./index.html" class="text-nowrap logo-img">
+              <h3>FACE ATTENDANCE</h3>
+          </a>
+            
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'index' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">FORMS</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'student_register' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">Student Register</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'views_student' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-alert-circle"></i>
+                </span>
+                <span class="hide-menu">View Student Details</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'take_attendance' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-cards"></i>
+                </span>
+                <span class="hide-menu">Take Attendance</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'search_attendance' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-search"></i>
+                </span>
+                <span class="hide-menu">Search Attendance</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+    
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+
+          </ul>
+          {% if email is not None %}
+              <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class='fa fa-user-circle-o' class="rounded-circle"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">{{ email }}</p>
+                    </a>
+                    <a href="{% url 'myprofile' %}" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-mail fs-6"></i>
+                      <p class="mb-0 fs-3">My Account</p>
+                    </a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          {% else %}
+              <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class='fa fa-user-circle-o' class="rounded-circle"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="{% url 'register' %}" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">Register</p>
+                    </a>
+                    <a href="{% url 'login' %}" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-mail fs-6"></i>
+                      <p class="mb-0 fs-3">Login</p>
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+        </nav>
+      </header>
+      <!--  Header End -->
+      <div class="container-fluid">
+        <!--  Row 1 -->
+       {% block content %}
+        <div class="row">
+          <div class="col-lg-8 d-flex align-items-strech">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                  <div class="mb-3 mb-sm-0">
+                      {% if messages %}
+    <div class="messages-container">
+      {% for message in messages %}
+        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+          !!{{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+                    <h5 class="card-title fw-semibold">DEPARTMENT OF COMPUTER SCIENCE</h5>
+                  </div>
+                </div>
+                  <iframe width="700" height="380" src="https://www.youtube.com/embed/vWdUoV_UpPQ?list=TLGG-7N86bDhuZUyNzAzMjAyNA&autoplay=1&mute=1" title="Erode Arts and Science College" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-12">
+                <!-- Yearly Breakup -->
+                <div class="card overflow-hidden">
+                  <div class="card-body p-4">
+                    <h5 class="card-title mb-9 fw-semibold">Total Staff</h5>
+                    <div class="row align-items-center">
+                      <div class="col-8">
+                        <h4 class="fw-semibold mb-3">{{ staff }}</h4>
+                        <div class="d-flex align-items-center mb-3">
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                          <div id="breakup"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <!-- Monthly Earnings -->
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row alig n-items-start">
+                      <div class="col-8">
+                        <h5 class="card-title mb-9 fw-semibold"> Total Student </h5>
+                        <h4 class="fw-semibold mb-3">{{ student }}</h4>
+                      </div>
+                      <div class="col-4">
+                        <div class="d-flex justify-content-end">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="earning"></div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row alig n-items-start">
+                      <div class="col-8">
+                        <h5 class="card-title mb-9 fw-semibold"> Total Attendence </h5>
+                        <h4 class="fw-semibold mb-3">{{ attendence }}</h4>
+                      </div>
+                      <div class="col-4">
+                        <div class="d-flex justify-content-end">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="earning"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{#        college Images#}
+           <h3>STAFF</h3>
+           <br>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/1.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/2.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">MacBook Air Pro</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/3.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Red Valvet Dress</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/4.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Cute Soft Teddybear</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/5.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/6.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+              </div>
+            </div>
+          </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/7.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+              </div>
+            </div>
+          </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="{% static '/assets/images/8.jpeg' %}" class="card-img-top rounded-0" alt="..." width="400" height="300"></a>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+          {% endblock %}
+
+      </div>
+    </div>
+  </div>
+  <script src="{% static '/assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static '/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static '/assets/js/sidebarmenu.js' %}"></script>
+  <script src="{% static '/assets/js/app.min.js' %}"></script>
+  <script src="{% static '/assets/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+  <script src="{% static '/assets/libs/simplebar/dist/simplebar.js' %}"></script>
+{#  <script src="{% static '/assets/js/dashboard.js' %}"></script>#}
+<script>
+    $(function () {
+
+
+  // =====================================
+  // Profit
+  // =====================================
+  var chart = {
+    series: [
+      { name: "Earnings this month:", data: {{ date }} },
+      { name: "Expense this month:", data: {{ date }} },
+    ],
+
+    chart: {
+      type: "bar",
+      height: 345,
+      offsetX: -15,
+      toolbar: { show: true },
+      foreColor: "#adb0bb",
+      fontFamily: 'inherit',
+      sparkline: { enabled: false },
+    },
+
+
+    colors: ["#5D87FF", "#49BEFF"],
+
+
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "35%",
+        borderRadius: [6],
+        borderRadiusApplication: 'end',
+        borderRadiusWhenStacked: 'all'
+      },
+    },
+    markers: { size: 0 },
+
+    dataLabels: {
+      enabled: false,
+    },
+
+
+    legend: {
+      show: false,
+    },
+
+
+    grid: {
+      borderColor: "rgba(0,0,0,0.1)",
+      strokeDashArray: 3,
+      xaxis: {
+        lines: {
+          show: false,
+        },
+      },
+    },
+
+    xaxis: {
+      type: "category",
+      categories: {{ date }},
+      labels: {
+        style: { cssClass: "grey--text lighten-2--text fill-color" },
+      },
+    },
+
+
+    yaxis: {
+      show: true,
+      min: 0,
+      max: 400,
+      tickAmount: 4,
+      labels: {
+        style: {
+          cssClass: "grey--text lighten-2--text fill-color",
+        },
+      },
+    },
+    stroke: {
+      show: true,
+      width: 3,
+      lineCap: "butt",
+      colors: ["transparent"],
+    },
+
+
+    tooltip: { theme: "light" },
+
+    responsive: [
+      {
+        breakpoint: 600,
+        options: {
+          plotOptions: {
+            bar: {
+              borderRadius: 3,
+            }
+          },
+        }
+      }
+    ]
+
+
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart"), chart);
+  chart.render();
+
+
+  // =====================================
+  // Breakup
+  // =====================================
+  var breakup = {
+    color: "#adb5bd",
+    series: {{ staff }},
+    labels: ["2022", "2021", "2020"],
+    chart: {
+      width: 180,
+      type: "donut",
+      fontFamily: "Plus Jakarta Sans', sans-serif",
+      foreColor: "#adb0bb",
+    },
+    plotOptions: {
+      pie: {
+        startAngle: 0,
+        endAngle: 360,
+        donut: {
+          size: '75%',
+        },
+      },
+    },
+    stroke: {
+      show: false,
+    },
+
+    dataLabels: {
+      enabled: false,
+    },
+
+    legend: {
+      show: false,
+    },
+    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+
+    responsive: [
+      {
+        breakpoint: 991,
+        options: {
+          chart: {
+            width: 150,
+          },
+        },
+      },
+    ],
+    tooltip: {
+      theme: "dark",
+      fillSeriesColor: false,
+    },
+  };
+
+  var chart = new ApexCharts(document.querySelector("#breakup"), breakup);
+  chart.render();
+
+
+
+  // =====================================
+  // Earning
+  // =====================================
+  var earning = {
+    chart: {
+      id: "sparkline3",
+      type: "area",
+      height: 60,
+      sparkline: {
+        enabled: true,
+      },
+      group: "sparklines",
+      fontFamily: "Plus Jakarta Sans', sans-serif",
+      foreColor: "#adb0bb",
+    },
+    series: [
+      {
+        name: "Earnings",
+        color: "#49BEFF",
+        data: [25, 66, 20, 40, 12, 58, 20],
+      },
+    ],
+    stroke: {
+      curve: "smooth",
+      width: 2,
+    },
+    fill: {
+      colors: ["#f3feff"],
+      type: "solid",
+      opacity: 0.05,
+    },
+
+    markers: {
+      size: 0,
+    },
+    tooltip: {
+      theme: "dark",
+      fixed: {
+        enabled: true,
+        position: "right",
+      },
+      x: {
+        show: false,
+      },
+    },
+  };
+  new ApexCharts(document.querySelector("#earning"), earning).render();
+})
+</script>
+</body>
+
+</html>

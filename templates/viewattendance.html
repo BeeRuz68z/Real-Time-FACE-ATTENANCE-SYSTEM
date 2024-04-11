@@ -1,0 +1,87 @@
+<style>
+    html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: linear-gradient(45deg, white, white);
+  font-family: sans-serif;
+  font-weight: 100;
+}
+.container {
+  position: absolute;
+}
+table {
+  width: 800px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+th,
+td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: black;
+}
+th {
+  text-align: left;
+}
+thead th {
+  background-color: cornflowerblue;
+}
+tbody tr:hover {
+  background-color: lightblue;
+}
+tbody td {
+  position: relative;
+}
+tbody td:hover:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: -1;
+}
+
+</style>
+{% extends 'index.html' %}
+{% block content %}
+    <h2>View Attendance</h2>
+    <br>
+    <div class="container">
+	<table>
+		<thead>
+			<tr>
+				<th>Faculty Name</th>
+				<th>Student Register ID Name</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Branch</th>
+                <th>Year</th>
+                <th>Section</th>
+                <th>Period</th>
+                <th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+        {% for i in attendences %}
+			<tr>
+				<td>{{ i.faculty.fname }}</td>
+				<td>{{ i.Student_ID }}</td>
+				<td>{{ i.date }}</td>
+				<td>{{ i.time }}</td>
+                <td>{{ i.branch }}</td>
+                <td>{{ i.year }}</td>
+                <td>{{ i.section }}</td>
+                <td>{{ i.period }}</td>
+                <td>{{ i.status }}</td>
+			</tr>
+        {% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

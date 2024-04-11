@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Student Register</h5>
+              <div class="card">
+                <div class="card-body">
+                  <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">First Name</label>
+                      <input type="text" class="form-control" name="fname" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" name="lname" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Register ID</label>
+                      <input type="text" class="form-control" name="registerid" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                     <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Branch</label>
+                         <select name="brn" id="brn" class="form-control">
+                          {% for i in branch %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+{#                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">#}
+                    </div>
+                     <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Year</label>
+                         <select name="yr" id="yr" class="form-control">
+                          {% for i in year %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Section</label>
+                        <select name="sec" id="sec" class="form-control">
+                          {% for i in section %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Upload Profile Picture</label>
+                        <div>
+                            <input type="file" class="form-control" name="fileInput" id="fileInput" value="Upload" accept="image/*" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+              </div>
+    </div>
+{% endblock %}

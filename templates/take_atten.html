@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Take Attendance</h5>
+              <div class="card">
+                <div class="card-body">
+                  <form method="post" action="{% url 'attendance' %}" enctype="multipart/form-data">
+                  {% csrf_token %}
+                     <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Branch</label>
+                         <select name="brn" id="brn" class="form-control">
+                          {% for i in branch %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+{#                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">#}
+                    </div>
+                     <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Year</label>
+                         <select name="yr" id="yr" class="form-control">
+                          {% for i in year %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Section</label>
+                        <select name="sec" id="sec" class="form-control">
+                          {% for i in section %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Select Period</label>
+                        <select name="per" id="per" class="form-control">
+                          {% for i in period %}
+                          <option value="{{ i.0 }}">{{ i.1 }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                      <a href="#"><button type="submit" class="btn btn-primary">Take Attendance</button></a>
+                  </form>
+                </div>
+              </div>
+    </div>
+{% endblock %}

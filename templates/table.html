@@ -1,0 +1,81 @@
+<style>
+    html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: linear-gradient(45deg, white, white);
+  font-family: sans-serif;
+  font-weight: 100;
+}
+.container {
+  position: absolute;
+}
+table {
+  width: 800px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+th,
+td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: black;
+}
+th {
+  text-align: left;
+}
+thead th {
+  background-color: cornflowerblue;
+}
+tbody tr:hover {
+  background-color: lightblue;
+}
+tbody td {
+  position: relative;
+}
+tbody td:hover:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: -1;
+}
+
+</style>
+{% extends 'index.html' %}
+{% block content %}
+    <div class="container">
+	<table>
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Register ID</th>
+				<th>Branch</th>
+				<th>Year</th>
+                <th>Section</th>
+                <th>Profile Pic</th>
+			</tr>
+		</thead>
+		<tbody>
+        {% for i in data %}
+			<tr>
+				<td>{{ i.first_name }}</td>
+				<td>{{ i.last_name }}</td>
+				<td>{{ i.registerid }}</td>
+				<td>{{ i.branch }}</td>
+				<td>{{ i.year }}</td>
+                <td>{{ i.section }}</td>
+                <td><img src="{{ i.profilepic.url }}" height="50px" width="30px"></td>
+			</tr>
+        {% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
